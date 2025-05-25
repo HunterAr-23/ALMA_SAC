@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Diagrama de Proceso: Caja Chica</title>
+  <title>Proceso Interactivo de Caja Chica</title>
   <style>
     :root {
       --color-bg-step: #cde3ff;
@@ -31,6 +31,9 @@
       margin: 0;
       padding: 20px;
       color: var(--color-text-step);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     h2 {
@@ -42,14 +45,16 @@
     .swimlane {
       border: 2px solid var(--color-border-step);
       border-radius: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
       max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
       background: #fafafa;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       padding-bottom: 20px;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .lane-title {
@@ -61,6 +66,7 @@
       font-size: 1.2rem;
       border-radius: 6px 6px 0 0;
       user-select: none;
+      width: 100%;
     }
 
     .lane-content {
@@ -69,6 +75,8 @@
       align-items: center;
       padding: 25px 15px;
       gap: 20px;
+      width: 100%;
+      max-width: 320px;
     }
 
     .step {
@@ -76,7 +84,8 @@
       border: 1.5px solid var(--color-border-step);
       border-radius: 8px;
       padding: 12px 20px;
-      width: 240px;
+      width: 100%;
+      max-width: 320px;
       text-align: center;
       font-size: 1rem;
       user-select: none;
@@ -101,13 +110,6 @@
       margin: 8px 0;
     }
 
-    .end {
-      background: var(--color-bg-error);
-      border: 2px solid var(--color-border-error);
-      color: var(--color-text-error);
-      font-weight: 600;
-    }
-
     .success {
       background-color: var(--color-bg-success);
       border: 2px solid var(--color-border-success);
@@ -115,9 +117,11 @@
       font-weight: 600;
       padding: 10px 16px;
       border-radius: 6px;
-      width: auto;
-      min-width: 240px;
+      width: 100%;
+      max-width: 320px;
       box-sizing: border-box;
+      margin-top: 10px;
+      text-align: center;
     }
 
     .error {
@@ -127,82 +131,81 @@
       font-weight: 600;
       padding: 10px 16px;
       border-radius: 6px;
-      width: auto;
-      min-width: 240px;
+      width: 100%;
+      max-width: 320px;
       box-sizing: border-box;
-    }
-
-    .branch-container {
-      display: flex;
-      justify-content: center;
-      gap: 70px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .branch {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 260px;
-      position: relative;
-    }
-
-    .circle-label {
-      width: var(--circle-size);
-      height: var(--circle-size);
-      border-radius: 50%;
-      border: 2px solid var(--color-border-step);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: var(--circle-font-size);
-      user-select: none;
-      margin-bottom: 6px;
-      background-color: #fff;
-      box-shadow: 0 0 4px rgba(0,0,0,0.1);
-      color: var(--color-text-step);
-    }
-
-    .circle-yes {
-      border-color: var(--color-border-success);
-      color: var(--color-text-success);
-    }
-
-    .circle-no {
-      border-color: var(--color-border-error);
-      color: var(--color-text-error);
-    }
-
-    .transition-arrow {
-      font-size: 42px;
-      color: var(--arrow-color);
-      text-align: center;
-      margin: 0 auto 40px auto;
-      user-select: none;
-      line-height: 1;
-      max-width: 240px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .inline-flow {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-left: -120px;
       margin-top: 10px;
-      gap: 10px;
+      text-align: center;
     }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 22px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 2px solid var(--color-border-step);
+      cursor: pointer;
+      background-color: #eee;
+      transition: background-color 0.3s ease;
+      min-width: 80px;
+      user-select: none;
+    }
+
+    button:hover {
+      background-color: #ddd;
+    }
+
+    button:focus {
+      outline: none;
+      border-color: #333;
+      background-color: #ccc;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+.arrow, .transition-arrow {
+  font-size: 28px;
+  color: var(--arrow-color);
+  user-select: none;
+
+  display: flex;
+  justify-content: center;  /* Centrado horizontal */
+  align-items: center;      /* Centrado vertical */
+  height: 40px;             /* Altura para que el alineamiento vertical funcione */
+  width: 100%;              /* Que ocupe todo el ancho del contenedor padre */
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
   </style>
 </head>
 <body>
 
 <h2>Proceso de Administración de Caja Chica – ALMA SAC</h2>
+<!-- Inicio del proceso: Aprobación y desembolso de fondo para Caja Chica -->
+<div class="swimlane" id="inicioFondo">
+  <div class="lane-title">Gerencia General y Finanzas</div>
+  <div class="lane-content">
+    <div class="step">Gerencia General aprueba fondo de S/ 5,000 para Caja Chica</div>
+    <div class="arrow">↓</div>
+    <div class="step">Área de Finanzas recibe solicitud de desembolso</div>
+    <div class="arrow">↓</div>
+    <div class="step">Área de Finanzas aprueba y ejecuta desembolso</div>
+    <div class="arrow">↓</div>
+    <div class="step success">Fondo disponible para solicitudes internas de gasto menor</div>
+  </div>
+</div>
 
-<!-- Las áreas del proceso -->
-<div class="swimlane">
+
+<!-- Área de Administración -->
+<div class="swimlane" id="areaAdmin">
   <div class="lane-title">Área de Administración</div>
   <div class="lane-content">
     <div class="step">INICIO</div>
@@ -210,88 +213,102 @@
     <div class="step">Recibe solicitud de gasto menor</div>
     <div class="arrow">↓</div>
     <div class="step decision">¿El gasto está permitido?</div>
-    <div class="branch-container">
-      <div class="branch">
-        <div class="circle-label circle-yes">Sí</div>
-        <div class="arrow">↓</div>
-        <div class="step">Realiza el gasto</div>
-        <div class="arrow">↓</div>
-        <div class="step">Guarda comprobante</div>
-        <div class="arrow">↓</div>
-        <div class="step success">Pasa a la validación de Área de Finanzas</div>
-      </div>
-      <div class="branch">
-        <div class="circle-label circle-no">No</div>
-        <div class="arrow">↓</div>
-        <div class="step error">Rechaza solicitud</div>
-        <div class="arrow">↓</div>
-        <div class="step error">Regresa al solicitante</div>
-      </div>
+    <div class="btn-group">
+      <button id="adminYes">Sí</button>
+      <button id="adminNo">No</button>
+    </div>
+
+    <div id="adminYesFlow" class="hidden">
+      <div class="arrow">↓</div>
+      <div class="step">Realiza el gasto</div>
+      <div class="arrow">↓</div>
+      <div class="step">Guarda comprobante</div>
+      <div class="arrow">↓</div>
+      <div class="step success">Pasa a la validación de Área de Finanzas</div>
+    </div>
+
+    <div id="adminNoFlow" class="hidden">
+      <div class="arrow">↓</div>
+      <div class="step error">Rechaza solicitud</div>
+      <div class="arrow">↓</div>
+      <div class="step error">Regresa al solicitante</div>
     </div>
   </div>
 </div>
 
-<div class="transition-arrow">↓</div>
+<!-- Flecha general -->
+<div class="arrow" id="arrowAdminToFin" style="display:none; font-size: 42px; margin-bottom: 40px;">↓</div>
 
-<div class="swimlane">
+<!-- Área de Finanzas -->
+<div class="swimlane hidden" id="areaFinanzas">
   <div class="lane-title">Área de Finanzas</div>
   <div class="lane-content">
     <div class="step">Recibe comprobante</div>
     <div class="arrow">↓</div>
     <div class="step decision">¿Está conforme?</div>
-    <div class="branch-container">
-      <div class="branch">
-        <div class="circle-label circle-yes">Sí</div>
-        <div class="arrow">↓</div>
-        <div class="step">Archiva el comprobante</div>
-        <div class="arrow">↓</div>
-        <div class="step success">Pasa a la validación de Gerencia General</div>
-      </div>
-      <div class="branch">
-        <div class="circle-label circle-no">No</div>
-        <div class="arrow">↓</div>
-        <div class="step error">Rechaza solicitud</div>
-        <div class="arrow">↓</div>
-        <div class="step end">Solicita aclaración</div>
-        <div class="arrow">↓</div>
-        <div class="step error">Regresa al Área de Administración</div>
-      </div>
+    <div class="btn-group">
+      <button id="finanzasYes">Sí</button>
+      <button id="finanzasNo">No</button>
+    </div>
+
+    <div id="finanzasYesFlow" class="hidden">
+      <div class="arrow">↓</div>
+      <div class="step">Archiva el comprobante</div>
+      <div class="arrow">↓</div>
+      <div class="step success">Pasa a la validación de Gerencia General</div>
+    </div>
+
+    <div id="finanzasNoFlow" class="hidden">
+      <div class="arrow">↓</div>
+      <div class="step error">Rechaza solicitud</div>
+      <div class="arrow">↓</div>
+      <div class="step end">Solicita aclaración</div>
+      <div class="arrow">↓</div>
+      <div class="step error">Regresa al Área de Administración</div>
     </div>
   </div>
 </div>
 
-<div class="transition-arrow">↓</div>
+<!-- Flecha general -->
+<div class="arrow hidden" id="arrowFinToGer" style="font-size: 42px; margin-bottom: 40px;">↓</div>
 
-<div class="swimlane">
+<!-- Gerencia General -->
+<div class="swimlane hidden" id="areaGerencia">
   <div class="lane-title">Gerencia General</div>
   <div class="lane-content">
     <div class="step">Recibe validación</div>
     <div class="arrow">↓</div>
     <div class="step decision">¿Autoriza desembolso?</div>
-    <div class="branch-container">
-      <div class="branch">
-        <div class="circle-label circle-yes">Sí</div>
-        <div class="arrow">↓</div>
-        <div class="step">Autoriza desembolso</div>
-        <div class="inline-flow">
-          <div class="arrow">↩</div>
-          <div class="step">Notifica a Área de Finanzas</div>
-        </div>
-      </div>
-      <div class="branch">
-        <div class="circle-label circle-no">No</div>
-        <div class="arrow">↓</div>
-        <div class="step error">Rechaza Solicitud</div>
-        <div class="arrow">↓</div>
-        <div class="step end">Regresa al área de finanza para las correcciones</div>
-      </div>
+    <div class="btn-group">
+      <button id="gerenciaYes">Sí</button>
+      <button id="gerenciaNo">No</button>
+    </div>
+
+    <div id="gerenciaYesFlow" class="hidden">
+      <div class="arrow">↓</div>
+      <div class="step">Autoriza desembolso</div>
+      <div class="arrow">↓</div>
+      <div class="step">Ejecuta desembolso</div>
+      <div class="arrow">↓</div>
+      <div class="step success">Notifica a Área de Finanzas y solicitante</div>
+    </div>
+
+    <div id="gerenciaNoFlow" class="hidden">
+      <div class="arrow">↓</div>
+      <div class="step error">Rechaza solicitud</div>
+      <div class="arrow">↓</div>
+      <div class="step error">Solicita aclaración</div>
+      <div class="arrow">↓</div>
+      <div class="step error">Regresa al Área de Administración</div>
     </div>
   </div>
 </div>
 
-<div class="transition-arrow">↓</div>
+<!-- Flecha Gerencia a Finanzas coordinación desembolso -->
+<div class="arrow hidden" id="arrowGerToFinCoord" style="font-size: 42px; margin-bottom: 40px;">↓</div>
 
-<div class="swimlane">
+<!-- Nueva Área de Finanzas: recibe notificación y coordina desembolso -->
+<div class="swimlane hidden" id="areaFinanzasCoord">
   <div class="lane-title">Área de Finanzas</div>
   <div class="lane-content">
     <div class="step">Recibe notificación de autorización</div>
@@ -300,9 +317,11 @@
   </div>
 </div>
 
-<div class="transition-arrow">↓</div>
+<!-- Flecha coordinación desembolso a administración -->
+<div class="arrow hidden" id="arrowFinCoordToAdmin" style="font-size: 42px; margin-bottom: 40px;">↓</div>
 
-<div class="swimlane">
+<!-- Nueva Área de Administración: recibe confirmación y realiza desembolso -->
+<div class="swimlane hidden" id="areaAdminDesembolso">
   <div class="lane-title">Área de Administración</div>
   <div class="lane-content">
     <div class="step">Recibe confirmación para desembolso</div>
@@ -310,6 +329,89 @@
     <div class="step success">Realiza el desembolso</div>
   </div>
 </div>
+
+<script>
+  function showFlow(flowIdToShow, flowsToHide) {
+    document.getElementById(flowIdToShow).classList.remove('hidden');
+    flowsToHide.forEach(id => document.getElementById(id).classList.add('hidden'));
+  }
+
+  // AREA ADMINISTRACION
+  const adminYesBtn = document.getElementById('adminYes');
+  const adminNoBtn = document.getElementById('adminNo');
+
+  adminYesBtn.addEventListener('click', () => {
+    showFlow('adminYesFlow', ['adminNoFlow']);
+    document.getElementById('arrowAdminToFin').style.display = 'block';
+    document.getElementById('areaFinanzas').classList.remove('hidden');
+    showFlow('finanzasYesFlow', ['finanzasNoFlow']);
+    document.getElementById('arrowFinToGer').classList.add('hidden');
+    document.getElementById('areaGerencia').classList.add('hidden');
+
+    // Ocultar flujos finales (coord desembolso)
+    document.getElementById('arrowGerToFinCoord').classList.add('hidden');
+    document.getElementById('areaFinanzasCoord').classList.add('hidden');
+    document.getElementById('arrowFinCoordToAdmin').classList.add('hidden');
+    document.getElementById('areaAdminDesembolso').classList.add('hidden');
+  });
+
+  adminNoBtn.addEventListener('click', () => {
+    showFlow('adminNoFlow', ['adminYesFlow']);
+    document.getElementById('arrowAdminToFin').style.display = 'none';
+    document.getElementById('areaFinanzas').classList.add('hidden');
+    document.getElementById('arrowFinToGer').classList.add('hidden');
+    document.getElementById('areaGerencia').classList.add('hidden');
+    // Ocultar flujos finales
+    document.getElementById('arrowGerToFinCoord').classList.add('hidden');
+    document.getElementById('areaFinanzasCoord').classList.add('hidden');
+    document.getElementById('arrowFinCoordToAdmin').classList.add('hidden');
+    document.getElementById('areaAdminDesembolso').classList.add('hidden');
+  });
+
+  // AREA FINANZAS
+  const finanzasYesBtn = document.getElementById('finanzasYes');
+  const finanzasNoBtn = document.getElementById('finanzasNo');
+
+  finanzasYesBtn.addEventListener('click', () => {
+    showFlow('finanzasYesFlow', ['finanzasNoFlow']);
+    document.getElementById('arrowFinToGer').style.display = 'block';
+    document.getElementById('areaGerencia').classList.remove('hidden');
+    showFlow('gerenciaYesFlow', ['gerenciaNoFlow']);
+  });
+
+  finanzasNoBtn.addEventListener('click', () => {
+    showFlow('finanzasNoFlow', ['finanzasYesFlow']);
+    document.getElementById('arrowFinToGer').style.display = 'none';
+    document.getElementById('areaGerencia').classList.add('hidden');
+    // Ocultar flujos finales
+    document.getElementById('arrowGerToFinCoord').classList.add('hidden');
+    document.getElementById('areaFinanzasCoord').classList.add('hidden');
+    document.getElementById('arrowFinCoordToAdmin').classList.add('hidden');
+    document.getElementById('areaAdminDesembolso').classList.add('hidden');
+  });
+
+  // GERENCIA GENERAL
+  const gerenciaYesBtn = document.getElementById('gerenciaYes');
+  const gerenciaNoBtn = document.getElementById('gerenciaNo');
+
+  gerenciaYesBtn.addEventListener('click', () => {
+    showFlow('gerenciaYesFlow', ['gerenciaNoFlow']);
+
+    // Mostrar coordinación desembolso de Finanzas y Admin desembolso
+    document.getElementById('arrowGerToFinCoord').classList.remove('hidden');
+    document.getElementById('areaFinanzasCoord').classList.remove('hidden');
+    document.getElementById('arrowFinCoordToAdmin').classList.remove('hidden');
+    document.getElementById('areaAdminDesembolso').classList.remove('hidden');
+  });
+
+  gerenciaNoBtn.addEventListener('click', () => {
+    showFlow('gerenciaNoFlow', ['gerenciaYesFlow']);
+    document.getElementById('arrowGerToFinCoord').classList.add('hidden');
+    document.getElementById('areaFinanzasCoord').classList.add('hidden');
+    document.getElementById('arrowFinCoordToAdmin').classList.add('hidden');
+    document.getElementById('areaAdminDesembolso').classList.add('hidden');
+  });
+</script>
 
 </body>
 </html>
